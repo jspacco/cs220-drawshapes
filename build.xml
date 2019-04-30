@@ -4,7 +4,7 @@
 	<property name="build.dir" value="dist"/>
 	<property name="jar.filename" value="drawshapes.jar"/>
 	<property name="jar.file" value="${build.dir}/${jar.filename}"/>
-	<property name="main-class" value="drawshapes.sol.DrawShapes"/>
+	<property name="main-class" value="drawshapes.impl.DrawShapes"/>
 
 	<target name="mkdest">
         <mkdir dir="${build.dir}"/>
