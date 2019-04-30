@@ -1,0 +1,37 @@
+<project name="drawshapes" default="build">
+	<property name="src.dir" value="src"/>
+	<property name="classes.dir" value="bin"/>
+	<property name="build.dir" value="dist"/>
+	<property name="jar.filename" value="drawshapes.jar"/>
+	<property name="jar.file" value="${build.dir}/${jar.filename}"/>
+	<property name="main-class" value="drawshapes.sol.DrawShapes"/>
+
+	<target name="mkdest">
+        <mkdir dir="${build.dir}"/>
+    </target>
+    
+    <target name="build" depends="mkdest">    	
+    	<javac srcdir="${src.dir}" destdir="${classes.dir}"/>
+    </target>
+	
+	<target name="jar" depends="build">
+		<!-- <unzip src="lib/" dest="${build.dir}"/> -->
+		
+		<!--
+		<manifestclasspath property="manifest.classpath" jarfile="${jar.file}">
+			<classpath refid="libraries.path"/>
+		</manifestclasspath>
+		-->
+
+		<jar destfile="${jar.file}" basedir="${classes.dir}">
+			<manifest>
+		    	<attribute name="Main-Class" value="${main-class}"/>
+		        <!-- <attribute name="Class-Path" value="${manifest.classpath}"/> -->
+			</manifest>
+		</jar>  
+	</target>
+
+	<target name="run" depends="jar">
+		<java jar="${jar.file}" fork="true"/>
+	</target>
+</project>
