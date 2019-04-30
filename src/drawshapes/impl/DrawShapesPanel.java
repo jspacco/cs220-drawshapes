@@ -27,13 +27,14 @@ public class DrawShapesPanel extends JPanel
     {
         this.width = width;
         this.height = height;
-        this.scene=scene;
+        this.scene = scene;
     }
     
     /* (non-Javadoc)
      * @see javax.swing.JComponent#paint(java.awt.Graphics)
      */
     public void paint(Graphics g) {
+        // Just tell the scene to draw itself
         scene.draw(g);
     }
     

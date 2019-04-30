@@ -43,8 +43,7 @@ public class Scene implements Iterable<IShape>
      */
     public List<IShape> select(Point point)
     {
-        // TODO implement this
-        return null;
+        throw new UnsupportedOperationException("Implement this");
     }
     
     /**
@@ -54,8 +53,7 @@ public class Scene implements Iterable<IShape>
      */
     public List<IShape> select(IShape s)
     {
-        // TODO implement this
-        return null;
+        throw new UnsupportedOperationException("Implement this");
     }
     
     /**

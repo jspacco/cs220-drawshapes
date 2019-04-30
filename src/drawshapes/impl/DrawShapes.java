@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -20,24 +21,34 @@ import javax.swing.JMenuItem;
 @SuppressWarnings("serial")
 public class DrawShapes extends JFrame
 {
+    // The enum tracks the different types of shape
+    // An enum is used for value that are constants
     private enum ShapeType {
         SQUARE,
         CIRCLE
     }
     
+    // The panel we will draw the shapes on
     private DrawShapesPanel shapePanel;
+    // The scene containing all of the shapes
     private Scene scene;
+    // Default shape type is square
     private ShapeType shapeType = ShapeType.SQUARE;
+    // The color we will use to draw the next shape
     private Color color = Color.RED;
 
     public DrawShapes(int width, int height)
     {
         setTitle("Draw Shapes!");
-        scene=new Scene();
+        
+        scene = new Scene();
         
         // create our canvas, add to this frame's content pane
-        shapePanel = new DrawShapesPanel(width,height,scene);
+        shapePanel = new DrawShapesPanel(width, height, scene);
+        
+        // Sets the pane where we'll draw things to our special shape panel
         this.getContentPane().add(shapePanel, BorderLayout.CENTER);
+        // We can't resize the JFrame
         this.setResizable(false);
         this.pack();
         this.setLocation(100,100);
@@ -52,6 +63,11 @@ public class DrawShapes extends JFrame
         // Handle closing the window.
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
+                // The System.exit method shuts down the JVM and
+                // tells it to clean up any open resources
+                // like GUI objects, open files, open network connections
+                // and so on. This may not be necessary but often you see
+                // System.exit used with GUI programs.
                 System.exit(0);
             }
         });
@@ -59,27 +75,34 @@ public class DrawShapes extends JFrame
     
     private void initializeMouseListener()
     {
+        // Add a listener for mouse motions (i.e. moving the mouse)
         shapePanel.addMouseMotionListener(new MouseMotionListener() {
             
             @Override
             public void mouseMoved(MouseEvent e) {
-                // TODO implement this method
+                // This method is called when you move the mouse
             }
             
             @Override
             public void mouseDragged(MouseEvent e) {
-                // TODO Auto-generated method stub
+                // A "drag" is when you move the mouse while one of
+                // the buttons has been held down
                 System.out.printf("mouse drag! (%d, %d)\n", e.getX(), e.getY());
             }
         });
         
-        shapePanel.addMouseListener(new MouseListener() {
+        // Listen for mouse clicks
+        shapePanel.addMouseListener(new MouseAdapter() {
 
             /* (non-Javadoc)
              * @see java.awt.event.MouseListener#mouseClicked(java.awt.event.MouseEvent)
              */
             public void mouseClicked(MouseEvent e)
             {
+                // mouseClicked() is called when you press and release a mouse button
+                // WITHOUT MOVING THE MOUSE. If you move the mouse, instead you get a 
+                // mousePressed(), some number mouse mouseDragged(), then a mouseReleased().
+                
                 if (e.getButton()==MouseEvent.BUTTON1) {
                     System.out.printf("Left click at (%d, %d)\n", e.getX(), e.getY());
                     if (shapeType == ShapeType.SQUARE) {
@@ -99,25 +122,13 @@ public class DrawShapes extends JFrame
                 } else if (e.getButton() == MouseEvent.BUTTON2){
                     System.out.printf("Middle click at (%d, %d)\n", e.getX(), e.getY());
                 }
+                // IMPORTANT
+                // repaint() tells the JFrame to re-draw itself, which has the effect
+                // of calling the paint() method for the DrawShapesPanel, which is what
+                // tells the scene to draw itself
+                // 
+                // Call this from DrawShapes whenever you want to redraw the scene!
                 repaint();
-            }
-
-            /* (non-Javadoc)
-             * @see java.awt.event.MouseListener#mouseEntered(java.awt.event.MouseEvent)
-             */
-            public void mouseEntered(MouseEvent e)
-            {
-                // TODO Auto-generated method stub
-                
-            }
-
-            /* (non-Javadoc)
-             * @see java.awt.event.MouseListener#mouseExited(java.awt.event.MouseEvent)
-             */
-            public void mouseExited(MouseEvent e)
-            {
-                // TODO Auto-generated method stub
-                
             }
 
             /* (non-Javadoc)
@@ -125,7 +136,16 @@ public class DrawShapes extends JFrame
              */
             public void mousePressed(MouseEvent e)
             {
-                // TODO Auto-generated method stub
+                if (e.getButton()==MouseEvent.BUTTON1) {
+                    // Press left mouse button
+                    System.out.printf("Pressed left button at (%d, %d)\n", e.getX(), e.getY());
+                } else if (e.getButton()==MouseEvent.BUTTON3) {
+                    // Press right mouse button
+                    System.out.printf("Pressed right button at (%d, %d)\n", e.getX(), e.getY());
+                } else if (e.getButton() == MouseEvent.BUTTON2){
+                    // Press middle mouse button (if your mouse has a middle button)
+                    System.out.printf("Pressed middle (%d, %d)\n", e.getX(), e.getY());
+                }
                 
             }
 
@@ -134,8 +154,17 @@ public class DrawShapes extends JFrame
              */
             public void mouseReleased(MouseEvent e)
             {
-                // TODO Auto-generated method stub
-                
+                // Called when you release the button you clicked
+                if (e.getButton()==MouseEvent.BUTTON1) {
+                    // Press left mouse button
+                    System.out.printf("Released left button at (%d, %d)\n", e.getX(), e.getY());
+                } else if (e.getButton()==MouseEvent.BUTTON3) {
+                    // Press right mouse button
+                    System.out.printf("Released right button at (%d, %d)\n", e.getX(), e.getY());
+                } else if (e.getButton() == MouseEvent.BUTTON2){
+                    // Press middle mouse button (if your mouse has a middle button)
+                    System.out.printf("Released middle (%d, %d)\n", e.getX(), e.getY());
+                }
             }
             
         });
@@ -158,7 +187,7 @@ public class DrawShapes extends JFrame
         loadItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // TODO Auto-generated method stub
+                // TODO load a file using a JFileDialog thing
                 System.out.println(e.getActionCommand());
             }
         });
@@ -168,7 +197,6 @@ public class DrawShapes extends JFrame
         saveItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // TODO Auto-generated method stub
                 System.out.println(e.getActionCommand());
             }
         });
@@ -240,7 +268,7 @@ public class DrawShapes extends JFrame
         });
         
         
-        // operation mode menu
+        // new menu option
         JMenu operationModeMenu=new JMenu("new menu option");
         menuBar.add(operationModeMenu);
         

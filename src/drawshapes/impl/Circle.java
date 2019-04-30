@@ -37,54 +37,46 @@ public class Circle implements IShape
 
     @Override
     public boolean intersects(IShape other) {
-        // TODO Auto-generated method stub
-        return false;
+        throw new UnsupportedOperationException("Implement this");
     }
 
     @Override
     public boolean contains(Point point) {
-        // TODO Auto-generated method stub
-        return false;
+        throw new UnsupportedOperationException("Implement this");
     }
 
     @Override
     public Color getColor() {
-        // TODO Auto-generated method stub
-        return null;
+        return this.color;
     }
 
     @Override
     public void setColor(Color color) {
-        // TODO Auto-generated method stub
-
+        throw new UnsupportedOperationException("Implement this");
     }
 
     @Override
     public boolean isSelected() {
-        // TODO Auto-generated method stub
-        return false;
+        throw new UnsupportedOperationException("Implement this");
     }
 
     @Override
     public void setSelected(boolean b) {
-        // TODO Auto-generated method stub
-
+        throw new UnsupportedOperationException("Implement this");
     }
 
     @Override
     public Point getAnchorPoint() {
-        // TODO Auto-generated method stub
-        return null;
+        throw new UnsupportedOperationException("Implement this");
     }
 
     @Override
     public void setAnchorPoint(Point p) {
-        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Implement this");
     }
 
     @Override
     public BoundingBox getBoundingBox() {
-        // TODO Auto-generated method stub
-        return null;
+        throw new UnsupportedOperationException("Implement this");
     }
 }
